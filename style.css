@@ -132,6 +132,22 @@ body {
     text-shadow: 0 0 5px rgba(255,255,255,0.8);
 }
 
+.linkedin {
+    background: linear-gradient(135deg, #0077b5, #005885);
+    color: white;
+}
+
+.portfolio {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    color: white;
+    cursor: pointer;
+}
+
+.portfolio span {
+    margin-left: 10px;
+    font-weight: 600;
+}
+
 .link::before {
     content: '';
     position: absolute;
