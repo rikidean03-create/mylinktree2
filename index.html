@@ -24,6 +24,10 @@
             <a href="https://tiktok.com/@rikii.dea" target="_blank" class="link tiktok">
                 <i class="fab fa-tiktok"></i>
             </a>
+
+            <a href="https://www.youtube.com/@yeihepixel" target="_blank" class="link youtube">
+                <i class="fab fa-youtube"></i>
+            </a>
             
             <a href="https://x.com/tvdea003" target="_blank" class="link twitter">
                 <i class="fab fa-twitter"></i>
@@ -45,11 +49,37 @@
 
     </div>
     
+    <!-- Modal "Prossimamente" -->
+    <div id="comingSoonModal" class="modal" aria-hidden="true">
+        <div class="modal-overlay"></div>
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <h2 id="modal-title">Prossimamente</h2>
+            <button class="modal-close" aria-label="Chiudi">&times;</button>
+        </div>
+    </div>
+
     <script>
         function showComingSoon(event) {
             event.preventDefault();
-            alert('Prossimamente');
+            const modal = document.getElementById('comingSoonModal');
+            if (modal) modal.classList.add('show');
         }
+
+        // Chiudi cliccando overlay o bottone chiudi
+        document.addEventListener('click', function(e) {
+            if (e.target.classList && (e.target.classList.contains('modal-overlay') || e.target.classList.contains('modal-close'))) {
+                const modal = document.getElementById('comingSoonModal');
+                if (modal) modal.classList.remove('show');
+            }
+        });
+
+        // Chiudi con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('comingSoonModal');
+                if (modal) modal.classList.remove('show');
+            }
+        });
     </script>
 </body>
 </html>

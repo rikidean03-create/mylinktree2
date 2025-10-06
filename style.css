@@ -137,6 +137,11 @@ body {
     color: white;
 }
 
+.youtube {
+    background: linear-gradient(135deg, #ff0000, #b31217);
+    color: white;
+}
+
 .portfolio {
     background: linear-gradient(135deg, #6c5ce7, #a29bfe);
     color: white;
@@ -179,6 +184,54 @@ footer {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 15px;
+}
+
+
+/* Modal Prossimamente */
+.modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 1000;
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(2px);
+}
+
+.modal-content {
+    position: relative;
+    max-width: 340px;
+    margin: 20vh auto;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.modal-content h2 {
+    color: #333;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.modal-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
 }
 
 
