@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #40e0d0 0%, #48cae4 100%);
+    background: #f7f7f9; /* fondo chiaro per far risaltare i colori */
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -45,7 +45,7 @@ body {
 .avatar-img {
     width: 100px;
     height: 100px;
-    border-radius: 50%;
+    border-radius: 12px; /* quadrato con angoli arrotondati */
     object-fit: cover;
     border: 4px solid #667eea;
     box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
@@ -255,4 +255,90 @@ footer {
         font-size: 20px;
         margin-right: 12px;
     }
+}
+
+
+/* Griglia decorativa 3x3 (mosaic) */
+.mosaic {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.square {
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 32px;
+    color: #111;
+}
+.square i { font-size: 28px; }
+
+/* Palette ispirata al tema colorato */
+.sq1 { background: #9ed0ff; }
+.sq2 { background: #f6e58d; }
+.sq3 { background: #9b59b6; color: #fff; }
+.sq4 { background: #f1c40f; }
+.sq5 { background: #dcdde1; }
+.sq6 { background: #f8c291; }
+.sq7 { background: #dfe6e9; }
+.sq8 { background: #ff7675; color: #fff; }
+.sq9 { background: #fd79a8; color: #000; }
+
+/* Griglia di tile quadrate per i link */
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.tile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+}
+
+.tile i {
+    font-size: 32px;
+    margin-bottom: 6px;
+}
+.tile .label {
+    font-size: 14px;
+    letter-spacing: 0.3px;
+}
+
+/* riutilizzo delle classi colore esistenti */
+.instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+.tiktok { background: linear-gradient(45deg, #ff0050, #000000); }
+.youtube { background: linear-gradient(135deg, #ff0000, #b31217); }
+.twitter { background: linear-gradient(135deg, #000000, #1da1f2); color: #fff; }
+.linkedin { background: linear-gradient(135deg, #0077b5, #005885); }
+.portfolio { background: linear-gradient(135deg, #6c5ce7, #a29bfe); cursor: pointer; }
+
+/* Follow text spacing aggiornato */
+.follow-section { text-align: center; margin-top: 10px; }
+.follow-text { color: #333; font-size: 18px; font-weight: 600; margin-bottom: 0; }
+
+/* Responsive */
+@media (max-width: 480px) {
+    .links-grid { grid-template-columns: repeat(2, 1fr); }
+    .square { font-size: 26px; }
+    .tile i { font-size: 28px; }
 }
