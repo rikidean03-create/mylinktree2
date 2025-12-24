@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@rikii.dea - Linktree</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <canvas id="snowCanvas" class="snow-canvas" aria-hidden="true"></canvas>
     <div class="container">
         <div class="profile">
             <div class="profile-image">
@@ -69,7 +70,6 @@
             if (modal) modal.classList.add('show');
         }
 
-        // Chiudi cliccando overlay o bottone chiudi
         document.addEventListener('click', function(e) {
             if (e.target.classList && (e.target.classList.contains('modal-overlay') || e.target.classList.contains('modal-close'))) {
                 const modal = document.getElementById('comingSoonModal');
@@ -77,13 +77,109 @@
             }
         });
 
-        // Chiudi con ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 const modal = document.getElementById('comingSoonModal');
                 if (modal) modal.classList.remove('show');
             }
         });
+
+        (function initSnow() {
+            const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduceMotion) return;
+
+            const canvas = document.getElementById('snowCanvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            const flakes = [];
+            const config = {
+                flakeCount: 120,
+                minRadius: 1,
+                maxRadius: 3.5,
+                minSpeed: 0.35,
+                maxSpeed: 1.35,
+                minWind: -0.2,
+                maxWind: 0.4
+            };
+
+            function randomBetween(min, max) {
+                return min + Math.random() * (max - min);
+            }
+
+            function resize() {
+                const dpr = Math.max(1, window.devicePixelRatio || 1);
+                canvas.width = Math.floor(window.innerWidth * dpr);
+                canvas.height = Math.floor(window.innerHeight * dpr);
+                canvas.style.width = window.innerWidth + 'px';
+                canvas.style.height = window.innerHeight + 'px';
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+
+            function makeFlake(spawnAtTop) {
+                const radius = randomBetween(config.minRadius, config.maxRadius);
+                return {
+                    x: Math.random() * window.innerWidth,
+                    y: spawnAtTop ? -radius * 4 : Math.random() * window.innerHeight,
+                    radius,
+                    speedY: randomBetween(config.minSpeed, config.maxSpeed),
+                    windX: randomBetween(config.minWind, config.maxWind),
+                    drift: randomBetween(0, Math.PI * 2),
+                    driftSpeed: randomBetween(0.002, 0.01),
+                    opacity: randomBetween(0.6, 0.95)
+                };
+            }
+
+            function populate() {
+                flakes.length = 0;
+                const count = Math.max(40, Math.floor(config.flakeCount * (window.innerWidth / 1000)));
+                for (let i = 0; i < count; i++) flakes.push(makeFlake(false));
+            }
+
+            function step() {
+                ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+                ctx.fillStyle = '#ffffff';
+
+                for (let i = 0; i < flakes.length; i++) {
+                    const f = flakes[i];
+                    f.drift += f.driftSpeed;
+                    const dx = Math.sin(f.drift) * 0.35;
+
+                    f.x += f.windX + dx;
+                    f.y += f.speedY;
+
+                    if (f.x < -f.radius * 4) f.x = window.innerWidth + f.radius * 4;
+                    if (f.x > window.innerWidth + f.radius * 4) f.x = -f.radius * 4;
+
+                    if (f.y > window.innerHeight + f.radius * 4) {
+                        flakes[i] = makeFlake(true);
+                    }
+
+                    ctx.globalAlpha = f.opacity;
+                    ctx.beginPath();
+                    ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(step);
+            }
+
+            resize();
+            populate();
+            step();
+
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                window.clearTimeout(resizeTimer);
+                resizeTimer = window.setTimeout(function() {
+                    resize();
+                    populate();
+                }, 120);
+            });
+        })();
     </script>
 </body>
 </html>
