@@ -1,185 +1,71 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@rikii.dea - Linktree</title>
-    <link rel="stylesheet" href="style.css?v=3">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Riccardo De Angelis | Linktree</title>
+    <meta name="description"
+        content="Collezione di link personali di Riccardo De Angelis. Seguimi sui social e scopri il mio portfolio.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
-    <canvas id="snowCanvas" class="snow-canvas" aria-hidden="true"></canvas>
-    <div class="container">
-        <div class="profile">
-            <div class="profile-image">
-                <img src="instagram new logo 2025.jpg" alt="@rikii.dea avatar" class="avatar-img">
+    <div class="background-overlay"></div>
+
+    <main class="container">
+
+        <section class="links-section">
+            <a href="https://www.instagram.com/rikii.dea/" target="_blank" class="link-card" id="instagram">
+                <i class="fa-brands fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+
+            <a href="https://x.com/tvdea003" target="_blank" class="link-card" id="x-twitter">
+                <i class="fa-brands fa-x-twitter"></i>
+                <span>X / Twitter</span>
+            </a>
+
+            <a href="https://it.linkedin.com/in/riccardo-de-angelis-b78555224?trk=people-guest_people_search-card"
+                target="_blank" class="link-card" id="linkedin">
+                <i class="fa-brands fa-linkedin-in"></i>
+                <span>LinkedIn</span>
+            </a>
+
+            <a href="https://www.tiktok.com/@rikii.dea" target="_blank" class="link-card" id="tiktok">
+                <i class="fa-brands fa-tiktok"></i>
+                <span>TikTok</span>
+            </a>
+
+            <a href="https://www.youtube.com/@yeihepixel" target="_blank" class="link-card" id="youtube">
+                <i class="fa-brands fa-youtube"></i>
+                <span>YouTube</span>
+            </a>
+
+            <a href="#" target="_blank" class="link-card" id="pinterest">
+                <i class="fa-brands fa-pinterest-p"></i>
+                <span>Pinterest</span>
+            </a>
+
+            <div class="link-card portfolio" id="portfolio">
+                <i class="fa-solid fa-briefcase"></i>
+                <div class="portfolio-text">
+                    <span>Portfolio</span>
+                </div>
+                <!-- Tooltip or dynamic message -->
+                <div class="coming-soon-overlay">IN ARRIVO</div>
             </div>
-        </div>
+        </section>
 
-        <div class="links-grid">
-            <a href="https://instagram.com/rikii.dea" target="_blank" class="tile instagram">
-                <i class="fab fa-instagram"></i>
-                <span class="label">Instagram</span>
-            </a>
-            
-            <a href="https://tiktok.com/@rikii.dea" target="_blank" class="tile tiktok">
-                <i class="fab fa-tiktok"></i>
-                <span class="label">TikTok</span>
-            </a>
+        <footer>
+        </footer>
+    </main>
 
-            <a href="https://www.youtube.com/@yeihepixel" target="_blank" class="tile youtube">
-                <i class="fab fa-youtube"></i>
-                <span class="label">YouTube</span>
-            </a>
-            
-            <a href="https://x.com/tvdea003" target="_blank" class="tile twitter">
-                <i class="fab fa-twitter"></i>
-                <span class="label">X / Twitter</span>
-            </a>
-            
-            <a href="https://it.linkedin.com/in/riccardo-de-angelis-b78555224?trk=people-guest_people_search-card" target="_blank" class="tile linkedin">
-                <i class="fab fa-linkedin"></i>
-                <span class="label">LinkedIn</span>
-            </a>
-            
-            <a href="#" onclick="showComingSoon(event)" class="tile portfolio">
-                <i class="fas fa-briefcase"></i>
-                <span class="label">Portfolio</span>
-            </a>
-        </div>
-        
-        <div class="follow-section">
-            <p class="follow-text">Follow Me!</p>
-        </div>
-
-    </div>
-    
-    <!-- Modal "Prossimamente" -->
-    <div id="comingSoonModal" class="modal" aria-hidden="true">
-        <div class="modal-overlay"></div>
-        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-            <h2 id="modal-title">Prossimamente</h2>
-            <button class="modal-close" aria-label="Chiudi">&times;</button>
-        </div>
-    </div>
-
-    <script>
-        function showComingSoon(event) {
-            event.preventDefault();
-            const modal = document.getElementById('comingSoonModal');
-            if (modal) modal.classList.add('show');
-        }
-
-        document.addEventListener('click', function(e) {
-            if (e.target.classList && (e.target.classList.contains('modal-overlay') || e.target.classList.contains('modal-close'))) {
-                const modal = document.getElementById('comingSoonModal');
-                if (modal) modal.classList.remove('show');
-            }
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const modal = document.getElementById('comingSoonModal');
-                if (modal) modal.classList.remove('show');
-            }
-        });
-
-        (function initSnow() {
-            const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (reduceMotion) return;
-
-            const canvas = document.getElementById('snowCanvas');
-            if (!canvas) return;
-
-            const ctx = canvas.getContext('2d');
-            if (!ctx) return;
-
-            const flakes = [];
-            const config = {
-                flakeCount: 120,
-                minRadius: 1,
-                maxRadius: 3.5,
-                minSpeed: 0.35,
-                maxSpeed: 1.35,
-                minWind: -0.2,
-                maxWind: 0.4
-            };
-
-            function randomBetween(min, max) {
-                return min + Math.random() * (max - min);
-            }
-
-            function resize() {
-                const dpr = Math.max(1, window.devicePixelRatio || 1);
-                canvas.width = Math.floor(window.innerWidth * dpr);
-                canvas.height = Math.floor(window.innerHeight * dpr);
-                canvas.style.width = window.innerWidth + 'px';
-                canvas.style.height = window.innerHeight + 'px';
-                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-            }
-
-            function makeFlake(spawnAtTop) {
-                const radius = randomBetween(config.minRadius, config.maxRadius);
-                return {
-                    x: Math.random() * window.innerWidth,
-                    y: spawnAtTop ? -radius * 4 : Math.random() * window.innerHeight,
-                    radius,
-                    speedY: randomBetween(config.minSpeed, config.maxSpeed),
-                    windX: randomBetween(config.minWind, config.maxWind),
-                    drift: randomBetween(0, Math.PI * 2),
-                    driftSpeed: randomBetween(0.002, 0.01),
-                    opacity: randomBetween(0.6, 0.95)
-                };
-            }
-
-            function populate() {
-                flakes.length = 0;
-                const count = Math.max(40, Math.floor(config.flakeCount * (window.innerWidth / 1000)));
-                for (let i = 0; i < count; i++) flakes.push(makeFlake(false));
-            }
-
-            function step() {
-                ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-                ctx.fillStyle = '#ffffff';
-
-                for (let i = 0; i < flakes.length; i++) {
-                    const f = flakes[i];
-                    f.drift += f.driftSpeed;
-                    const dx = Math.sin(f.drift) * 0.35;
-
-                    f.x += f.windX + dx;
-                    f.y += f.speedY;
-
-                    if (f.x < -f.radius * 4) f.x = window.innerWidth + f.radius * 4;
-                    if (f.x > window.innerWidth + f.radius * 4) f.x = -f.radius * 4;
-
-                    if (f.y > window.innerHeight + f.radius * 4) {
-                        flakes[i] = makeFlake(true);
-                    }
-
-                    ctx.globalAlpha = f.opacity;
-                    ctx.beginPath();
-                    ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-
-                ctx.globalAlpha = 1;
-                requestAnimationFrame(step);
-            }
-
-            resize();
-            populate();
-            step();
-
-            let resizeTimer;
-            window.addEventListener('resize', function() {
-                window.clearTimeout(resizeTimer);
-                resizeTimer = window.setTimeout(function() {
-                    resize();
-                    populate();
-                }, 120);
-            });
-        })();
-    </script>
+    <script src="script.js"></script>
 </body>
+
 </html>
