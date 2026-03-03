@@ -1,11 +1,12 @@
 :root {
-    --bg-image: url('bg.png');
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.2);
+    --bg-blue-light: #cde9ff;
+    --bg-blue-dark: #8cc9ff;
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.4);
     --text-color: #ffffff;
-    --accent-color: #00d2ff;
-    --hover-bg: rgba(255, 255, 255, 0.2);
-    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --accent-color: #ffffff;
+    --hover-bg: rgba(255, 255, 255, 0.4);
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 * {
@@ -15,14 +16,14 @@
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     color: var(--text-color);
-    background: #0f0c29;
+    background: var(--bg-blue-dark);
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    padding: 60px 20px;
+    align-items: center;
+    padding: 40px 20px;
     overflow-x: hidden;
 }
 
@@ -32,15 +33,53 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background:
-        radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
-        radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
-        radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%),
-        radial-gradient(at 0% 100%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
-        radial-gradient(at 100% 100%, hsla(253, 16%, 7%, 1) 0, transparent 50%);
-    background-size: 200% 200%;
+    background: linear-gradient(180deg, var(--bg-blue-dark) 0%, var(--bg-blue-light) 100%);
     z-index: -1;
-    animation: liquid 15s infinite alternate linear;
+    animation: moveGrad 8s ease infinite alternate;
+}
+
+@keyframes moveGrad {
+    from {
+        background-position: 0% 0%;
+    }
+
+    to {
+        background-position: 100% 100%;
+    }
+}
+
+.profile-header {
+    margin-bottom: 40px;
+    animation: bounceIn 0.8s ease-out;
+}
+
+.profile-name {
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(3rem, 15vw, 5.5rem);
+    font-weight: 700;
+    color: white;
+    text-shadow:
+        0 8px 16px rgba(0, 0, 0, 0.08),
+        0 0 30px rgba(255, 255, 255, 0.6);
+    letter-spacing: -2px;
+    line-height: 0.9;
+    margin: 0;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 @keyframes liquid {
@@ -82,19 +121,21 @@ body {
     width: 100%;
     aspect-ratio: 1 / 1;
     background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 2px solid var(--glass-border);
+    border-radius: 40px;
     text-decoration: none;
     color: white;
-    font-weight: 500;
+    font-weight: 600;
     transition: var(--transition);
     position: relative;
     overflow: hidden;
-    animation: fadeInUp 0.5s ease-out forwards;
+    animation:
+        fadeInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards,
+        float 5s ease-in-out infinite alternate;
     opacity: 0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(132, 184, 255, 0.2);
 }
 
 .link-card::before {
@@ -113,47 +154,49 @@ body {
 }
 
 .link-card:nth-child(1) {
-    animation-delay: 0.1s;
+    animation-delay: 0.1s, 0s;
 }
 
 .link-card:nth-child(2) {
-    animation-delay: 0.2s;
+    animation-delay: 0.2s, 0.5s;
 }
 
 .link-card:nth-child(3) {
-    animation-delay: 0.3s;
+    animation-delay: 0.3s, 1s;
 }
 
 .link-card:nth-child(4) {
-    animation-delay: 0.4s;
+    animation-delay: 0.4s, 1.5s;
 }
 
 .link-card:nth-child(5) {
-    animation-delay: 0.5s;
+    animation-delay: 0.5s, 2s;
 }
 
 .link-card:nth-child(6) {
-    animation-delay: 0.6s;
+    animation-delay: 0.6s, 2.5s;
 }
 
 .link-card:hover {
-    transform: translateY(-5px) scale(1.05);
+    transform: translateY(-10px) scale(1.08);
     background: var(--hover-bg);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 20px 40px rgba(132, 184, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.8);
 }
 
 .link-card i:first-child {
-    font-size: 1.8rem;
-    margin-bottom: 6px;
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .link-card span {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 600;
     text-align: center;
-    opacity: 0.8;
+    opacity: 0.95;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
 }
 
 .arrow {
@@ -178,12 +221,15 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 700;
     font-size: 0.75rem;
+    color: #4a90e2;
     letter-spacing: 1px;
     transform: translateY(100%);
     transition: var(--transition);
@@ -193,6 +239,42 @@ body {
 .portfolio.active .coming-soon-overlay {
     transform: translateY(0);
 }
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateY(-10px) translateX(0);
+    }
+
+    25% {
+        transform: translateY(-10px) translateX(-4px);
+    }
+
+    75% {
+        transform: translateY(-10px) translateX(4px);
+    }
+}
+
+.shake {
+    animation: shake 0.3s ease-in-out 2;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+
 
 /* Animations */
 @keyframes fadeInUp {
@@ -208,28 +290,10 @@ body {
 }
 
 /* Custom platform colors on hover */
-#instagram:hover {
-    border-color: #E1306C;
-}
-
-#x-twitter:hover {
-    border-color: #1DA1F2;
-}
-
-#linkedin:hover {
-    border-color: #0077B5;
-}
-
-#tiktok:hover {
-    border-color: #ff0050;
-}
-
-#youtube:hover {
-    border-color: #FF0000;
-}
-
-#pinterest:hover {
-    border-color: #BD081C;
+/* Neutral soft hover for all cards */
+.link-card:hover i {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
 }
 
 /* Responsive adjustments */
